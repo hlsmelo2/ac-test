@@ -1,0 +1,71 @@
+Desafio para back-end Agil:
+Pode ser desenvolvido na linguagem de sua preferência, usamos
+
+laravel, nodejs, nestjs e go.
+
+
+Objetivo
+
+O objetivo consiste na criação de uma carteira para usuário e a realização de transferências entre eles.
+Teremos apenas um tipo de usuário que pode enviar ou receber dinheiro de qualquer outro.
+
+Requisitos: 
+
+. Criar cadastro
+. Criar autenticação
+. Usuários podem enviar ou receber dinheiro
+. Validar se o usuário tem saldo antes da transferência.
+. A operação de transferência deve ser uma transação que precisa ser revertida em qualquer
+    caso de inconsistência e o dinheiro devolvido para a carteira do usuário
+. Este serviço deve ser RESTFul.
+. Utilize ao menos duas apis externas gratuitas para gerenciar algum dado
+. Nos surprienda com algo que não pedimos, mas que possivelmente seja importante para o nosso projeto futuro.
+
+
+
+Para o dia da entrevista técnica
+
+Na data marcada pelo recrutador tenha sua aplicação rodando na sua 
+máquina local para execução dos
+testes e para nos mostrar os pontos desenvolvidos e possíveis questionamentos. Faremos um code review
+juntos como se você já fosse do nosso time, você poderá explicar o que você 
+pensou, como arquitetou e como pode evoluir o projeto.
+
+Avaliação
+
+
+Apresente sua solução utilizando o framework que você desejar, justificando 
+a escolha. Atente-se a cumprir
+a maioria dos requisitos, pois você pode cumpri-los parcialmente e durante 
+a avaliação vamos bater um
+papo a respeito do que faltou
+
+O que será avaliado: 
+
+
+. Uso de código limpo
+. Dominio da arquitetura
+. Tratamentos de erros
+. Conhecimentos de padrões
+. Segurança
+. Ser consistente e saber argumentar suas escolhas
+. Conhecimento de padrões (design patterns, SOLID)
+. Modelagem de dados
+
+O que será um diferencial: 
+
+. Uso de Docker
+. Testes de integração
+. Testes unitários
+. Arquitetura limpa 
+. Documentação
+. Proposta de melhoria na arquitetura
+. Monitoramento e logging
+
+O projeto deverá ser entregue até o final do dia 16/10
+
+
+Após fazermos a avaliação. Entraremos em contato para fazer o pair.
+
+
+Boa sorte

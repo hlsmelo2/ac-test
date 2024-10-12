@@ -3,7 +3,7 @@ import Link from "next/link";
 const menuItems: any = {
   login: { href: '/login', label: 'Login' },
   register: { href: '/register', label: 'Cadastrar' },
-  transfers: { href: '/transfers', label: 'Trnaferências' },
+  transfers: { href: '/transfers', label: 'Transferências' },
 };
 
 export default function Menu() {

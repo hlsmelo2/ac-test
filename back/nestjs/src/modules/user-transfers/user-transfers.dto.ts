@@ -55,7 +55,7 @@ export class UserTransfersDTO {
     }
 
     private getUserPermissiomByID(id: number) {
-        return userPermissions.find(permission => permission.userId === id);
+        return userPermissions.find((permission: Permissions) => permission.userId === id);
     }
 
     private can(checks: any[]) {
