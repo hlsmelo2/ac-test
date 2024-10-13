@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { depositList, transferList } from '../data';
 import { Deposit, Transfer } from '../types';
+import { PrismaService } from '@app/shared/prisma/prisma.service';
 
 export interface User {
     userId: Number,
@@ -10,45 +10,55 @@ export interface User {
 
 @Injectable()
 export class TransfersService {
-    private db: Transfer[] = transferList;
-
-    public findAll(userId: number) {
-        return this.db.filter(
-            transfer => transfer.receiver === userId || transfer.sender === userId
-        );
+    constructor(private prisma: PrismaService) {
+        //
     }
 
-    private findOne(transferId: number) {
-        return this.db.find(transfer => transfer.id === transferId);
+    public async findAll(userId: number) {
+        userId = parseInt(String(userId));
+
+        return await this.prisma.transfers.findMany({
+            where: {
+                OR: [
+                    { receiver: userId },
+                    { sender: userId },
+                ],
+            },
+        });
     }
 
-    public giveReturn(transferId: number) {
-        const transfer = this.findOne(transferId);
+    private async findOne(transferId: number) {
+        return await this.prisma.transfers.findUnique({ where: { id: transferId } });
+    }
 
-        if (transfer === undefined) {
+    public async giveReturn(transferId: number) {
+        const transfer = await this.findOne(transferId);
+
+        if (transfer === null) {
             return false;
         }
 
         transfer.return = true;
 
-        return this.update(transfer);
+        return await this.update(transfer);
     }
 
-    private update(transfer: Transfer) {
-        const index = this.db.findIndex(item => item === transfer);
-
-        return this.db[index] = transfer;
+    private async update(transfer: Transfer) {
+        return await this.prisma.transfers.update({
+            where: { id: transfer.id },
+            data: transfer,
+        });
     }
 
-    public upinsert(transfer: Transfer) {
+    public async upinsert(transfer: Transfer) {
         if (transfer.id !== undefined) {
-            return this.update(transfer);
+            return await this.update(transfer);
         }
 
-        return transferList.push(transfer);
+        return await this.prisma.deposits.create({ data: transfer });
     }
 
-    public makeDeposit(deposit: Deposit) {
-        depositList.push(deposit);
+    public async makeDeposit(deposit: Deposit) {
+        return await this.prisma.deposits.create({ data: deposit });
     }
 }

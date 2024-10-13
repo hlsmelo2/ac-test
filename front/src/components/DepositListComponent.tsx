@@ -18,8 +18,8 @@ export default function DepositListComponent({ deposits, ...props }: DepositList
                     </tr>
                 </thead>
                 <tbody>
-                    {deposits.map(deposit => (
-                        <tr>
+                    {deposits.map((deposit, index) => (
+                        <tr key={index}>
                             <td className="amount">{deposit.amount}</td>
                             <td className="receiver">{deposit.receiver}</td>
                         </tr>

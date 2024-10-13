@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 
 import { TransfersService } from './transfers.service';
 import { TransfersController } from './transfers.controller';
+import { PrismaModule } from '@app/shared/prisma/prisma.module';
 
 @Module({
-  imports: [],
+  imports: [PrismaModule],
   controllers: [TransfersController],
   providers: [TransfersService],
   exports: [TransfersService],

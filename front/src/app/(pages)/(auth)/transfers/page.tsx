@@ -1,18 +1,26 @@
+'use client'
 import DepositListComponent from "@/components/DepositListComponent";
 import TransferListComponent, { Transfer } from "@/components/TransferListComponent";
+import Axios from "axios-observable";
+import { useState } from "react";
 
 export default function TransfersPage() {
-    const received: Transfer[] = [
-        {amount: 100, receiver: 1, return: false, sender: 2},
-        {amount: 100, receiver: 1, return: false, sender: 2},
-        {amount: 100, receiver: 1, return: true, sender: 2},
-    ];
+    const [received, setReceived] = useState<Transfer[]>([]);
+    const [sended, setSended] = useState<Transfer[]>([]);
 
-    const sended: Transfer[] = [
-        {amount: 100, receiver: 2, return: false, sender: 1},
-        {amount: 100, receiver: 2, return: true, sender: 1},
-        {amount: 100, receiver: 2, return: false, sender: 1},
-    ];
+    const getTransfers = function() {
+        Axios.get('http://localhost:3001/transfers', {
+            params: { id: 1 },
+        }).subscribe({
+            next({ data }: { data: Transfer[] }) {
+                setReceived(data);
+                setSended(data);
+                console.log({data});
+            },
+        }).unsubscribe();
+    }
+
+    getTransfers();
 
     return (
         <div>

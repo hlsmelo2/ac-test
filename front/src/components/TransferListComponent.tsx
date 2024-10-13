@@ -30,8 +30,8 @@ export default function TransferListComponent({ type, transfers, ...props }: Tra
                     </tr>
                 </thead>
                 <tbody>
-                    {transfers.map(transfer => (
-                        <tr>
+                    {transfers.map((transfer, index) => (
+                        <tr key={index}>
                             <td className="amount">{transfer.amount}</td>
                             <td className={key}>{transfer[key]}</td>
                             <td className="return">{transfer.return ? 'Sim' : 'Não'}</td>

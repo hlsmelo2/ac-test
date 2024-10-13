@@ -14,11 +14,11 @@ export default function MenuComponent() {
     return (
         <nav>
             {
-                Object.keys(menuItems).map(key => {
+                Object.keys(menuItems).map((key, index) => {
                     const item: MenuItem = menuItems[key];
 
                     return (
-                        <Link href={item.href}>{item.label}</Link>
+                        <Link key={index} href={item.href}>{item.label}</Link>
                     );
                 })
             }

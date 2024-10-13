@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Query } from '@nestjs/common';
 
 import { Public } from '@modules/auth/guards/public.guard';
-import { Transfer, User } from '@modules/types';
+import { Deposit, Transfer, User } from '@modules/types';
 import { TransfersService } from '@modules/transfers/transfers.service';
 import { UsersService } from '@modules/users/users.service';
 import { AuthService } from '@modules/auth/auth.service';
@@ -14,6 +14,12 @@ export class AppController {
     private authService: AuthService,
   ) {
     //
+  }
+
+  @Public()
+  @Get('')
+  async home(@Body() body: User) {
+    return `teste ${JSON.stringify(body)}`;
   }
 
   @Public()
@@ -39,12 +45,13 @@ export class AppController {
   }
 
   @Post('deposits')
-  makeDeposit(@Body() transfer: Transfer) {
-    return this.transfersService.makeDeposit(transfer);
+  makeDeposit(@Body() deposit: Deposit) {
+    return this.transfersService.makeDeposit(deposit);
   }
 
+  @Public()
   @Get('transfers')
-  listTranfers(@Param() { id }: { id: string }) {
+  listTranfers(@Query() { id }: { id: string }) {
     return this.transfersService.findAll(parseInt(id));
   }
 

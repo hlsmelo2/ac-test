@@ -1,5 +1,4 @@
-import { Deposit, DepositTransfer, Transfer, UserData, UserPermissions } from "@modules/types";
-import { userPermissions, users } from "../data";
+import { DepositTransfer, Transfer, UserData, UserPermissions } from "@modules/types";
 
 export class UserTransfersDTO {
     constructor(
@@ -20,9 +19,9 @@ export class UserTransfersDTO {
     }
 
     private getBalance(data: UserData): number {
-        const list = data.deposits.concat(data.transfers);
+        const list = data.deposits.concat(<any>data.transfers);
 
-        return list.reduce((prev: DepositTransfer, current: DepositTransfer): DepositTransfer => {
+        return list.reduce((prev: DepositTransfer, current: DepositTransfer): any => {
             const receiver = this.isReceiver((<{id: number}>data.user).id, current);
             const returned = (<Transfer>current).return;
             let amount = prev.amount;
@@ -52,11 +51,11 @@ export class UserTransfersDTO {
     }
 
     private getUserByID(id: number) {
-        return users.find(user => user.id === id);
+        // return users.find(user => user.id === id);
     }
 
     private getUserPermissiomByID(id: number) {
-        return userPermissions.find(permission => permission.userId === id);
+        // return userPermissions.find(permission => permission.userId === id);
     }
 
     private can(checks: any[]) {
@@ -76,8 +75,8 @@ export class UserTransfersDTO {
 
         return this.can([
             [user !== undefined, 'O usuário recebedor não existe'],
-            [myPermissions?.send, 'Você não possui permissão para fazer transferêcias'],
-            [permissions?.receive, 'O usuário recebedor não possui permissão para receber transferêcias'],
+            // [myPermissions?.send, 'Você não possui permissão para fazer transferêcias'],
+            // [permissions?.receive, 'O usuário recebedor não possui permissão para receber transferêcias'],
             [this.balance >= amount, 'Você não possui saldo suficiente para fazer essa transferêcias'],
         ]);
     }
@@ -87,7 +86,7 @@ export class UserTransfersDTO {
             return;
         }
 
-        this.userData.transfers.push({ amount, sender: this.id, receiver, return: false });
+        this.userData.transfers.push({ id: 0, amount, sender: this.id, receiver, return: false });
 
         this.balance = this.getBalance(this.userData);
 
@@ -95,7 +94,9 @@ export class UserTransfersDTO {
     }
 
     public deposit(amount: number) {
-        this.userData.deposits.push({ amount, receiver: this.id });
+        const count = this.userData.deposits.length + 1;
+
+        this.userData.deposits.push({ id: count, amount, receiver: this.id });
         this.balance = this.getBalance(this.userData);
     }
 

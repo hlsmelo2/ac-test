@@ -21,7 +21,8 @@ export default function RootLayout(
         <html lang="en">
             <body className={inter.className}>
                 <MenuComponent></MenuComponent>
-                <NextAuthSessionProvider>{children}</NextAuthSessionProvider>
+                {/* <NextAuthSessionProvider>{children}</NextAuthSessionProvider> */}
+                <div>{children}</div>
             </body>
         </html>
     );
