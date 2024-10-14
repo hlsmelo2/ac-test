@@ -26,13 +26,13 @@ export class AuthService {
   }
 
   async login(user: User): Promise<{ access_token: string }> {
-    const validate = await this.validateUser(user.username, user.password);
+    const validateUser = await this.validateUser(user.username, user.password);
 
-    if (validate === null) {
+    if (validateUser === null) {
       throw new HttpException('User or password is wrong', 401);
     }
 
-    const payload = { username: user.username, sub: user.id };
+    const payload = { username: validateUser.username, sub: validateUser.id };
 
     return {
       access_token: this.jwtService.sign(payload),

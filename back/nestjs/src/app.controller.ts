@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Query, Header, Res } from '@nestjs/common';
 
 import { Public } from '@modules/auth/guards/public.guard';
 import { Deposit, Transfer, User } from '@modules/types';
@@ -23,12 +23,19 @@ export class AppController {
   }
 
   @Public()
+  @Get('users')
+  async getUsers() {
+    return this.usersService.findAll();
+  }
+
+  @Public()
   @Post('users')
   async createUser(@Body() user: User) {
     return this.usersService.upinsert(user);
   }
 
   @Public()
+  @Header('Access-Control-Allow-Origin', 'http://localhost:3000')
   @Post('auth/login')
   async login(@Body() user: User) {
     return this.authService.login(user);

@@ -3,6 +3,7 @@
 import { SyntheticEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import TransfersComponent from '@/components/TransfersComponent';
 
 export default function LoginPage() {
     const [username, setUsername] = useState<string>('user-1');
